@@ -466,7 +466,7 @@ end)
 function Utils.Framework.getTopTruckers()
 	local sql = [[SELECT U.charinfo, T.user_id, T.exp, T.traveled_distance 
 		FROM trucker_users T 
-		INNER JOIN players U ON T.user_id = U.citizenid
+		INNER JOIN players U ON T.user_id = U.citizenid COLLATE utf8mb4_general_ci
 		WHERE traveled_distance > 0 ORDER BY traveled_distance DESC LIMIT 10]];
 	local result = Utils.Database.fetchAll(sql,{});
 	for k,v in ipairs(result) do
@@ -478,7 +478,7 @@ end
 function Utils.Framework.getpartyMembers(party_id)
 	local sql = [[SELECT U.charinfo, P.* 
 		FROM `trucker_party_members` P
-		INNER JOIN players U ON P.user_id = U.citizenid
+		INNER JOIN players U ON P.user_id = U.citizenid COLLATE utf8mb4_general_ci
 		WHERE party_id = @party_id]];
 	local result = Utils.Database.fetchAll(sql,{['@party_id'] = party_id});
 	for k,v in ipairs(result) do
